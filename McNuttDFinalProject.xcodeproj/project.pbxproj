@@ -17,6 +17,7 @@
 		DCD191472224ACD900FF85D8 /* McNuttDFinalProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD191462224ACD900FF85D8 /* McNuttDFinalProjectTests.swift */; };
 		DCD191522224ACD900FF85D8 /* McNuttDFinalProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD191512224ACD900FF85D8 /* McNuttDFinalProjectUITests.swift */; };
 		DCD191602224AE4600FF85D8 /* TodoListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD1915F2224AE4600FF85D8 /* TodoListTableViewController.swift */; };
+		DCF65D57222B27C400A136FF /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF65D56222B27C400A136FF /* CategoryTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		DCD191512224ACD900FF85D8 /* McNuttDFinalProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = McNuttDFinalProjectUITests.swift; sourceTree = "<group>"; };
 		DCD191532224ACD900FF85D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DCD1915F2224AE4600FF85D8 /* TodoListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableViewController.swift; sourceTree = "<group>"; };
+		DCF65D56222B27C400A136FF /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				DCD1912E2224ACD700FF85D8 /* AppDelegate.swift */,
 				DCD191302224ACD700FF85D8 /* TodoDetailViewController.swift */,
 				DCD191322224ACD700FF85D8 /* Main.storyboard */,
+				DCF65D56222B27C400A136FF /* CategoryTableViewController.swift */,
 				DCBAEDDF22299294002102A0 /* EditTaskViewController.swift */,
 				DCD1915F2224AE4600FF85D8 /* TodoListTableViewController.swift */,
 				DCD191382224ACD900FF85D8 /* Assets.xcassets */,
@@ -270,6 +273,7 @@
 				DCBAEDE022299294002102A0 /* EditTaskViewController.swift in Sources */,
 				DCD1912F2224ACD700FF85D8 /* AppDelegate.swift in Sources */,
 				DCD191602224AE4600FF85D8 /* TodoListTableViewController.swift in Sources */,
+				DCF65D57222B27C400A136FF /* CategoryTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

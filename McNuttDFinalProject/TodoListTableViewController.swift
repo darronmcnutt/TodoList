@@ -28,7 +28,7 @@ class TodoListTableViewController: UITableViewController {
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Task")
         
-        // Sort alphabetically
+        // Sort by date
         let sort = NSSortDescriptor(key: "date", ascending: true)
         fetchRequest.sortDescriptors = [sort]
         
