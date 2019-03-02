@@ -7,14 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DCBAEDE022299294002102A0 /* EditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCBAEDDF22299294002102A0 /* EditTaskViewController.swift */; };
 		DCD1912F2224ACD700FF85D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD1912E2224ACD700FF85D8 /* AppDelegate.swift */; };
-		DCD191312224ACD700FF85D8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD191302224ACD700FF85D8 /* ViewController.swift */; };
+		DCD191312224ACD700FF85D8 /* TodoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD191302224ACD700FF85D8 /* TodoDetailViewController.swift */; };
 		DCD191342224ACD700FF85D8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DCD191322224ACD700FF85D8 /* Main.storyboard */; };
 		DCD191372224ACD700FF85D8 /* McNuttDFinalProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DCD191352224ACD700FF85D8 /* McNuttDFinalProject.xcdatamodeld */; };
 		DCD191392224ACD900FF85D8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCD191382224ACD900FF85D8 /* Assets.xcassets */; };
 		DCD1913C2224ACD900FF85D8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DCD1913A2224ACD900FF85D8 /* LaunchScreen.storyboard */; };
 		DCD191472224ACD900FF85D8 /* McNuttDFinalProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD191462224ACD900FF85D8 /* McNuttDFinalProjectTests.swift */; };
 		DCD191522224ACD900FF85D8 /* McNuttDFinalProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD191512224ACD900FF85D8 /* McNuttDFinalProjectUITests.swift */; };
+		DCD191602224AE4600FF85D8 /* TodoListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD1915F2224AE4600FF85D8 /* TodoListTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,9 +37,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DCBAEDDF22299294002102A0 /* EditTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskViewController.swift; sourceTree = "<group>"; };
 		DCD1912B2224ACD700FF85D8 /* McNuttDFinalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = McNuttDFinalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCD1912E2224ACD700FF85D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DCD191302224ACD700FF85D8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DCD191302224ACD700FF85D8 /* TodoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoDetailViewController.swift; sourceTree = "<group>"; };
 		DCD191332224ACD700FF85D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DCD191362224ACD700FF85D8 /* McNuttDFinalProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = McNuttDFinalProject.xcdatamodel; sourceTree = "<group>"; };
 		DCD191382224ACD900FF85D8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +52,7 @@
 		DCD1914D2224ACD900FF85D8 /* McNuttDFinalProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = McNuttDFinalProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCD191512224ACD900FF85D8 /* McNuttDFinalProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = McNuttDFinalProjectUITests.swift; sourceTree = "<group>"; };
 		DCD191532224ACD900FF85D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DCD1915F2224AE4600FF85D8 /* TodoListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,8 +104,10 @@
 			isa = PBXGroup;
 			children = (
 				DCD1912E2224ACD700FF85D8 /* AppDelegate.swift */,
-				DCD191302224ACD700FF85D8 /* ViewController.swift */,
+				DCD191302224ACD700FF85D8 /* TodoDetailViewController.swift */,
 				DCD191322224ACD700FF85D8 /* Main.storyboard */,
+				DCBAEDDF22299294002102A0 /* EditTaskViewController.swift */,
+				DCD1915F2224AE4600FF85D8 /* TodoListTableViewController.swift */,
 				DCD191382224ACD900FF85D8 /* Assets.xcassets */,
 				DCD1913A2224ACD900FF85D8 /* LaunchScreen.storyboard */,
 				DCD1913D2224ACD900FF85D8 /* Info.plist */,
@@ -260,8 +266,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCD191372224ACD700FF85D8 /* McNuttDFinalProject.xcdatamodeld in Sources */,
-				DCD191312224ACD700FF85D8 /* ViewController.swift in Sources */,
+				DCD191312224ACD700FF85D8 /* TodoDetailViewController.swift in Sources */,
+				DCBAEDE022299294002102A0 /* EditTaskViewController.swift in Sources */,
 				DCD1912F2224ACD700FF85D8 /* AppDelegate.swift in Sources */,
+				DCD191602224AE4600FF85D8 /* TodoListTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
