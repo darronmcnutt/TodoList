@@ -31,6 +31,13 @@ class EditTaskViewController: UIViewController {
     
     
     @IBAction func saveTask(_ sender: UIButton) {
+        if titleField.text == "" {
+            let alertController = UIAlertController(title: "Invalid Input", message: "Title field is required", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion: nil)
+            return
+        }
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
@@ -50,6 +57,11 @@ class EditTaskViewController: UIViewController {
         do {
             try managedContext.save()
             taskObject = task
+            
+            let alertController = UIAlertController(title: "Success", message: "Your changes have been saved", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion: nil)
         } catch let error as NSError {
             print("Save to Core Data failed. Error details: \(error), \(error.userInfo)")
         }

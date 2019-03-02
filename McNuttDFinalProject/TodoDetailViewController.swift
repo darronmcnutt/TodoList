@@ -40,7 +40,7 @@ class TodoDetailViewController: UIViewController {
             timeContent.text = dateFormatter.string(from: date)
             
             let category = task.value(forKeyPath:"category") as? Int ?? 3
-            categoryContent.text = getCategoryString(categoryInt: category)
+            categoryContent.text = categories[category]
         }
     }
     
@@ -50,19 +50,7 @@ class TodoDetailViewController: UIViewController {
         }
     }
     
-    func getCategoryString(categoryInt: Int) -> String {
-        var category = ""
-        
-        switch categoryInt {
-            case 0: category = "Work"
-            case 1: category = "Home"
-            case 2: category = "Social"
-            case 3: category = "Other"
-            default: category = "Other"
-        }
-        
-        return category
-    }
+
 
 }
 

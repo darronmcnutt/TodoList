@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+let categories = ["Work", "Home", "Social", "Other"]
+
 class TodoListTableViewController: UITableViewController {
 
     var tasks: [NSManagedObject] = []
@@ -25,6 +27,10 @@ class TodoListTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Task")
+        
+        // Sort alphabetically
+        let sort = NSSortDescriptor(key: "date", ascending: true)
+        fetchRequest.sortDescriptors = [sort]
         
         do {
             tasks = try managedContext?.fetch(fetchRequest) ?? []
@@ -63,7 +69,9 @@ class TodoListTableViewController: UITableViewController {
         return true
     }
     */
-
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return categories[section]
+//    }
  
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -111,10 +119,10 @@ class TodoListTableViewController: UITableViewController {
         if let detailViewController = segue.destination as? TodoDetailViewController {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 detailViewController.taskObject = tasks[indexPath.row]
+            }
         }
-    }
-
-
     }
     
 }
+
+
