@@ -31,8 +31,8 @@ class EditTaskViewController: UIViewController {
     
     
     @IBAction func saveTask(_ sender: UIButton) {
-        if titleField.text == "" {
-            let alertController = UIAlertController(title: "Invalid Input", message: "Title field is required", preferredStyle: .alert)
+        if titleField.text == "" || descriptionField.text == "" {
+            let alertController = UIAlertController(title: "Invalid Input", message: "Title and description fields are required", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(okAction)
             present(alertController, animated: true, completion: nil)

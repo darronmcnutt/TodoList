@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="IFu-ud-NuE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XxL-zi-6iS">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -155,6 +155,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="Hi5-6C-FLp"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -162,16 +165,23 @@
                             <outlet property="delegate" destination="sTL-NN-xaj" id="hV2-SW-GFj"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Tasks by Category" id="afd-Vn-5tG"/>
+                    <navigationItem key="navigationItem" title="Tasks by Category" id="afd-Vn-5tG">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Mns-mO-Flg">
+                            <connections>
+                                <segue destination="XQK-h1-p1p" kind="show" id="spu-Pa-ywS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i1k-8Q-Fy8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="537" y="-535"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--By Category-->
         <scene sceneID="Hlg-j6-3mt">
             <objects>
                 <navigationController id="IFu-ud-NuE" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="By Category" image="Category" id="jZm-Rn-Yos"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="g9l-05-1bL">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -182,7 +192,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zKp-G7-ACI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-417" y="-535"/>
+            <point key="canvasLocation" x="-223" y="-536"/>
         </scene>
         <!--Task Details-->
         <scene sceneID="tne-QT-ifu">
@@ -279,7 +289,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1280.8" y="-470.01499250374815"/>
+            <point key="canvasLocation" x="1281" y="-537"/>
         </scene>
         <!--Tasks-->
         <scene sceneID="WTb-fB-YwH">
@@ -328,11 +338,29 @@
             </objects>
             <point key="canvasLocation" x="506" y="302"/>
         </scene>
-        <!--Item-->
+        <!--Tab Bar Controller-->
+        <scene sceneID="5Tt-IY-pxb">
+            <objects>
+                <tabBarController id="XxL-zi-6iS" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jDs-es-x4Z">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="IFu-ud-NuE" kind="relationship" relationship="viewControllers" id="14K-ef-WbU"/>
+                        <segue destination="81g-mP-1sg" kind="relationship" relationship="viewControllers" id="8T3-eM-qa0"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l0y-Uo-bP0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1289" y="-121"/>
+        </scene>
+        <!--By Date-->
         <scene sceneID="haY-SO-Lof">
             <objects>
                 <navigationController id="81g-mP-1sg" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="HlE-bL-TkO"/>
+                    <tabBarItem key="tabBarItem" title="By Date" image="Date" id="HlE-bL-TkO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="HUR-X1-Epy">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -346,7 +374,12 @@
             <point key="canvasLocation" x="-223" y="302"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Category" width="30" height="30"/>
+        <image name="Date" width="30" height="30"/>
+    </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="GGT-hU-6Y9"/>
         <segue reference="Yrp-zx-Ipl"/>
     </inferredMetricsTieBreakers>
 </document>

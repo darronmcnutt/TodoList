@@ -13,6 +13,7 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
    
     let managedContext = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
     var resultsController: NSFetchedResultsController<NSManagedObject>!
+    var numSections = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,15 +21,6 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-
-//        do {
-//            try controller.performFetch()
-//        } catch {
-//            fatalError("Failed to fetch entities: \(error)")
-//        }
-        
-        self.tableView.reloadData()
         
     }
     
@@ -121,6 +113,14 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let detailViewController = segue.destination as? TodoDetailViewController {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
+                detailViewController.taskObject = resultsController.object(at: indexPath)
+            }
+        }
+    }
+    
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
         if type == .delete {
@@ -129,11 +129,32 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
                     tableView.deleteRows(at: [indexPath], with: .fade)
                 } else {
                     tableView.deleteSections([indexPath.section], with: .fade)
+
                 }
-                
+
             }
         }
-       
+
+        if type == .insert {
+
+            if let indexPath = newIndexPath {
+                if ( (resultsController.sections?.count ?? 0) > tableView.numberOfSections) {
+                    tableView.insertSections([indexPath.section], with: .fade)
+                } else {
+                    tableView.insertRows(at: [indexPath], with: .fade)
+                }
+            }
+        }
+        
+        if type == .move {
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            
+            if let newIndexPath = newIndexPath {
+                tableView.insertRows(at: [newIndexPath], with: .fade)
+            }
+        }
     }
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
