@@ -82,7 +82,7 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
         guard let sectionInfo = resultsController.sections?[section] else {
             return nil
         }
-        return sectionInfo.name
+        return categories[Int(sectionInfo.name) ?? 3]
     }
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return resultsController.sectionIndexTitles
@@ -109,6 +109,13 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
             
             // Delete object
             resultsController.managedObjectContext.delete(object)
+            
+            // Save changes to Core Data
+            do {
+                try managedContext.save()
+            } catch let error as NSError {
+                print("Save to Core Data failed. Error details: \(error), \(error.userInfo)")
+            }
             
         }
     }
