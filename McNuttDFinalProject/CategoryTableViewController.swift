@@ -12,20 +12,21 @@ import CoreData
 class CategoryTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
    
     let managedContext = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
-    var resultsController: NSFetchedResultsController<NSManagedObject>!
-    var numSections = 0
+    
+    var tasks: [[NSManagedObject]] = Array(repeating: [], count: categories.count)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initFetchedResultsController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        fetchTasks()
+        self.tableView.reloadData()
     }
     
-    func initFetchedResultsController() {
-
+    func fetchTasks() {
+        var unclassifiedTasks: [NSManagedObject] = []
+        tasks = Array(repeating: [], count: categories.count)
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Task")
         
@@ -33,36 +34,35 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
         let sort = NSSortDescriptor(key: "date", ascending: true)
         fetchRequest.sortDescriptors = [sort]
         
-        resultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedContext, sectionNameKeyPath: "category", cacheName: nil)
-        
         do {
-            try resultsController.performFetch()
-        } catch {
-            fatalError("Failed to fetch entities: \(error)")
+            unclassifiedTasks = try managedContext.fetch(fetchRequest)
+        } catch let error as NSError {
+            print("Fetching from Core Data failed. Error details: \(error), \(error.userInfo)")
         }
         
-        resultsController.delegate = self
+        for task in unclassifiedTasks {
+            let category = (task.value(forKeyPath:"category") as? Int) ?? 3
+            tasks[category].append(task)
+        }
+        
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return resultsController.sections?.count ?? 0
+        return categories.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let sections = resultsController.sections else {
-            fatalError("No sections in fetchedResultsController")
-        }
-        let sectionInfo = sections[section]
-        return sectionInfo.numberOfObjects
+        return tasks[section].count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "subtitle", for: indexPath)
-        let object = resultsController.object(at: indexPath)
+        let object = tasks[indexPath.section][indexPath.row]
+        
         cell.textLabel?.text = object.value(forKeyPath:"title") as? String
         
         let date = object.value(forKeyPath:"date") as? Date ?? Date()
@@ -79,19 +79,15 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
     }
  
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard let sectionInfo = resultsController.sections?[section] else {
-            return nil
-        }
-        return categories[Int(sectionInfo.name) ?? 3]
+        return categories[section]
     }
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return resultsController.sectionIndexTitles
+        return categories
     }
     
-    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
-        let result = resultsController.section(forSectionIndexTitle: title, at: index)
-        return result
-    }
+//    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+//        return categories.firstIndex(of: title)
+//    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -104,11 +100,11 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            // Retrieve task object from results controller
-            let object = resultsController.object(at: indexPath)
+            // Retrieve task object from array
+            let task = tasks[indexPath.section][indexPath.row]
             
-            // Delete object
-            resultsController.managedObjectContext.delete(object)
+            // Delete task object
+            managedContext.delete(task)
             
             // Save changes to Core Data
             do {
@@ -117,60 +113,19 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
                 print("Save to Core Data failed. Error details: \(error), \(error.userInfo)")
             }
             
+            tasks[indexPath.section].remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let detailViewController = segue.destination as? TodoDetailViewController {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                detailViewController.taskObject = resultsController.object(at: indexPath)
+                detailViewController.taskObject = tasks[indexPath.section][indexPath.row]
             }
         }
     }
     
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        
-        if type == .delete {
-            if let indexPath = indexPath {
-                if tableView.numberOfRows(inSection: indexPath.section) > 1 {
-                    tableView.deleteRows(at: [indexPath], with: .fade)
-                } else {
-                    tableView.deleteSections([indexPath.section], with: .fade)
-
-                }
-
-            }
-        }
-
-        if type == .insert {
-
-            if let indexPath = newIndexPath {
-                if ( (resultsController.sections?.count ?? 0) > tableView.numberOfSections) {
-                    tableView.insertSections([indexPath.section], with: .fade)
-                } else {
-                    tableView.insertRows(at: [indexPath], with: .fade)
-                }
-            }
-        }
-        
-        if type == .move {
-            if let indexPath = indexPath {
-                tableView.deleteRows(at: [indexPath], with: .fade)
-            }
-            
-            if let newIndexPath = newIndexPath {
-                tableView.insertRows(at: [newIndexPath], with: .fade)
-            }
-        }
-    }
-    
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.beginUpdates()
-    }
-    
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        tableView.endUpdates()
-    }
 
 
 }
