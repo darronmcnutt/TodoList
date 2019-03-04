@@ -183,7 +183,6 @@
                 <navigationController id="IFu-ud-NuE" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="By Category" image="Category" id="jZm-Rn-Yos"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="g9l-05-1bL">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -362,7 +361,6 @@
                 <navigationController id="81g-mP-1sg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="By Date" image="Date" id="HlE-bL-TkO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="HUR-X1-Epy">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>

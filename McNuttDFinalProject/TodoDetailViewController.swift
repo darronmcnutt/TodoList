@@ -18,11 +18,8 @@ class TodoDetailViewController: UIViewController {
     
     var taskObject: NSManagedObject?
     
-    //TODO: Add function that extracts the category based on int
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,16 +28,19 @@ class TodoDetailViewController: UIViewController {
             taskName.text = task.value(forKeyPath:"title") as? String
             descriptionContent.text = task.value(forKeyPath:"descript") as? String
             
-            let date = task.value(forKeyPath:"date") as? Date ?? Date()
-            let dateFormatter = DateFormatter()
-            dateFormatter.locale = Locale(identifier: "en_US")
-            dateFormatter.dateStyle = .medium
-            dateFormatter.timeStyle = .short
+            if let date = task.value(forKeyPath:"date") as? Date {
+                let dateFormatter = DateFormatter()
+                dateFormatter.locale = Locale(identifier: "en_US")
+                dateFormatter.dateStyle = .medium
+                dateFormatter.timeStyle = .short
+                
+                timeContent.text = dateFormatter.string(from: date)
+            }
+
+            if let category = task.value(forKeyPath:"category") as? Int {
+                categoryContent.text = categories[category]
+            }
             
-            timeContent.text = dateFormatter.string(from: date)
-            
-            let category = task.value(forKeyPath:"category") as? Int ?? 3
-            categoryContent.text = categories[category]
         }
     }
     
@@ -50,7 +50,5 @@ class TodoDetailViewController: UIViewController {
         }
     }
     
-
-
 }
 

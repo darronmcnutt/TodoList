@@ -10,8 +10,6 @@ import UIKit
 import CoreData
 
 class CategoryTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
-   
-    let managedContext = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
     
     var tasks: [[NSManagedObject]] = Array(repeating: [], count: categories.count)
     
@@ -25,29 +23,32 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
     }
     
     func fetchTasks() {
-        var unclassifiedTasks: [NSManagedObject] = []
+        // Clear the tasks array
         tasks = Array(repeating: [], count: categories.count)
+        
+        var uncategorizedTasks: [NSManagedObject] = []
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Task")
         
-        // Sort by date
+        // Sort tasks by date
         let sort = NSSortDescriptor(key: "date", ascending: true)
         fetchRequest.sortDescriptors = [sort]
         
+        // Perform fetch request
         do {
-            unclassifiedTasks = try managedContext.fetch(fetchRequest)
+            uncategorizedTasks = try managedContext.fetch(fetchRequest)
         } catch let error as NSError {
             print("Fetching from Core Data failed. Error details: \(error), \(error.userInfo)")
         }
         
-        for task in unclassifiedTasks {
-            let category = (task.value(forKeyPath:"category") as? Int) ?? 3
-            tasks[category].append(task)
+        // Categorize tasks
+        for task in uncategorizedTasks {
+            if let category = task.value(forKeyPath:"category") as? Int {
+                tasks[category].append(task)
+            }
         }
         
     }
-
-    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return categories.count
@@ -65,37 +66,30 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
         
         cell.textLabel?.text = object.value(forKeyPath:"title") as? String
         
-        let date = object.value(forKeyPath:"date") as? Date ?? Date()
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US")
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .short
-        
-        cell.detailTextLabel?.text = dateFormatter.string(from: date)
+        if let date = object.value(forKeyPath:"date") as? Date {
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US")
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .short
+            
+            cell.detailTextLabel?.text = dateFormatter.string(from: date)
+        }
         
         return cell
-        
+
     }
  
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return categories[section]
     }
+    
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return categories
+        return ["W", "H", "S", "O"]
     }
     
-//    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
-//        return categories.firstIndex(of: title)
-//    }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        return index
     }
-    */
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -113,6 +107,7 @@ class CategoryTableViewController: UITableViewController, NSFetchedResultsContro
                 print("Save to Core Data failed. Error details: \(error), \(error.userInfo)")
             }
             
+            // Update tasks array and table view
             tasks[indexPath.section].remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
