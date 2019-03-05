@@ -17,6 +17,7 @@ class EditTaskViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     
     var taskObject: NSManagedObject?
+    var taskCount: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,8 @@ class EditTaskViewController: UIViewController {
         
         let entity = NSEntityDescription.entity(forEntityName: "Task", in: managedContext)!
         
+        let displayPriority = (taskObject?.value(forKeyPath:"displayPriority") as? Int) ?? taskCount ?? 0
+        
         // Modifies the taskObject or creates a new object if nil
         let task = taskObject ?? NSManagedObject(entity: entity, insertInto: managedContext)
         
@@ -46,6 +49,7 @@ class EditTaskViewController: UIViewController {
         task.setValue(descriptionField.text!, forKeyPath: "descript")
         task.setValue(categorySelector.selectedSegmentIndex, forKeyPath: "category")
         task.setValue(datePicker.date, forKeyPath: "date")
+        task.setValue(displayPriority, forKeyPath: "displayPriority")
         
         do {
             // Save to Core Data

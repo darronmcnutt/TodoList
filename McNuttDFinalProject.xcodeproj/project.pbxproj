@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC068F8C222E018C00D37DF6 /* PriorityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC068F8B222E018C00D37DF6 /* PriorityTableViewController.swift */; };
 		DCBAEDE022299294002102A0 /* EditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCBAEDDF22299294002102A0 /* EditTaskViewController.swift */; };
 		DCD1912F2224ACD700FF85D8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD1912E2224ACD700FF85D8 /* AppDelegate.swift */; };
 		DCD191312224ACD700FF85D8 /* TodoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD191302224ACD700FF85D8 /* TodoDetailViewController.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DC068F8B222E018C00D37DF6 /* PriorityTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityTableViewController.swift; sourceTree = "<group>"; };
 		DCBAEDDF22299294002102A0 /* EditTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskViewController.swift; sourceTree = "<group>"; };
 		DCD1912B2224ACD700FF85D8 /* McNuttDFinalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = McNuttDFinalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCD1912E2224ACD700FF85D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				DCD1912E2224ACD700FF85D8 /* AppDelegate.swift */,
 				DCD191302224ACD700FF85D8 /* TodoDetailViewController.swift */,
 				DCD191322224ACD700FF85D8 /* Main.storyboard */,
+				DC068F8B222E018C00D37DF6 /* PriorityTableViewController.swift */,
 				DCF65D56222B27C400A136FF /* CategoryTableViewController.swift */,
 				DCBAEDDF22299294002102A0 /* EditTaskViewController.swift */,
 				DCD1915F2224AE4600FF85D8 /* TodoListTableViewController.swift */,
@@ -269,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCD191372224ACD700FF85D8 /* McNuttDFinalProject.xcdatamodeld in Sources */,
+				DC068F8C222E018C00D37DF6 /* PriorityTableViewController.swift in Sources */,
 				DCD191312224ACD700FF85D8 /* TodoDetailViewController.swift in Sources */,
 				DCBAEDE022299294002102A0 /* EditTaskViewController.swift in Sources */,
 				DCD1912F2224ACD700FF85D8 /* AppDelegate.swift in Sources */,

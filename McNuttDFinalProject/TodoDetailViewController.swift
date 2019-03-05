@@ -17,6 +17,7 @@ class TodoDetailViewController: UIViewController {
     @IBOutlet weak var categoryContent: UILabel!
     
     var taskObject: NSManagedObject?
+    var taskCount: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +48,7 @@ class TodoDetailViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationViewController = segue.destination as? EditTaskViewController {
             destinationViewController.taskObject = taskObject
+            destinationViewController.taskCount = taskCount
         }
     }
     

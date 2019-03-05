@@ -1,20 +1,16 @@
 //
-//  TodoListTableViewController.swift
+//  PriorityTableViewController.swift
 //  McNuttDFinalProject
 //
-//  Created by Darron on 2/25/19.
+//  Created by Darron on 3/4/19.
 //  Copyright © 2019 DePaul University. All rights reserved.
 //
 
 import UIKit
 import CoreData
 
-// Global variables
-let categories = ["Work", "Home", "Social", "Other"]
-let managedContext = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
-
-class TodoListTableViewController: UITableViewController {
-
+class PriorityTableViewController: UITableViewController {
+    
     var tasks: [NSManagedObject] = []
     
     override func viewDidLoad() {
@@ -25,8 +21,8 @@ class TodoListTableViewController: UITableViewController {
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Task")
         
-        // Sort tasks by date
-        let sort = NSSortDescriptor(key: "date", ascending: true)
+        // Sort tasks by priority
+        let sort = NSSortDescriptor(key: "displayPriority", ascending: true)
         fetchRequest.sortDescriptors = [sort]
         
         do {
@@ -38,18 +34,23 @@ class TodoListTableViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
+    
+    @IBAction func toggleEdit(_ sender: UIBarButtonItem) {
+        isEditing = !isEditing
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let task = tasks[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "subtitle", for: indexPath)
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "basic", for: indexPath)
+        
         cell.textLabel?.text = task.value(forKeyPath:"title") as? String
         
         if let date = task.value(forKeyPath:"date") as? Date {
@@ -60,10 +61,10 @@ class TodoListTableViewController: UITableViewController {
             
             cell.detailTextLabel?.text = dateFormatter.string(from: date)
         }
-
+        
         return cell
     }
- 
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
@@ -87,8 +88,18 @@ class TodoListTableViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let task = tasks[sourceIndexPath.row]
+        
+        tasks.remove(at: sourceIndexPath.row)
+        tasks.insert(task, at: destinationIndexPath.row)
+        
+        updateDisplayPriority()
+        
+    }
+    
     func updateDisplayPriority() {
-        for (i, task) in tasks.sorted(by: {($0.value(forKeyPath:"displayPriority") as! Int) < ($1.value(forKeyPath:"displayPriority") as! Int)}).enumerated() {
+        for (i, task) in tasks.enumerated() {
             task.setValue(i, forKey: "displayPriority")
         }
         
@@ -104,7 +115,7 @@ class TodoListTableViewController: UITableViewController {
         if let detailViewController = segue.destination as? TodoDetailViewController {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 detailViewController.taskObject = tasks[indexPath.row]
-                detailViewController.taskCount = tasks.count
+                detailViewController.taskCount = tasks.count 
             }
         }
         
@@ -114,5 +125,3 @@ class TodoListTableViewController: UITableViewController {
     }
     
 }
-
-
